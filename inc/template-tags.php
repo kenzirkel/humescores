@@ -135,10 +135,10 @@ add_action( 'save_post',     'humescores_category_transient_flusher' );
  */
 function humescores_post_navigation() {
 	the_post_navigation( array(
-		'next_text' => '<span class="meta-nav" aria-hidden="true">' . __( 'Next', 'humescores' ) . '</span> ' .
+		'next_text' => '<i class="fa fa-arrow-circle-right fa-lg" aria-hidden="true"></i><span class="meta-nav" aria-hidden="true">' . __( 'Next', 'humescores' ) . '</span> ' .
 			'<span class="screen-reader-text">' . __( 'Next post:', 'humescores' ) . '</span> ' .
 			'<span class="post-title">%title</span>',
-		'prev_text' => '<i class="fa fa-arrow-circle-left" aria-hidden="true"></i><span class="meta-nav" aria-hidden="true">' . __( 'Previous', 'humescores' ) . '</span> ' .
+		'prev_text' => '<i class="fa fa-arrow-circle-left fa-4x" aria-hidden="true"></i><span class="meta-nav" aria-hidden="true">' . __( 'Previous', 'humescores' ) . '</span> ' .
 			'<span class="screen-reader-text">' . __( 'Previous post:', 'humescores' ) . '</span> ' .
 			'<span class="post-title">%title</span>',
 	) );

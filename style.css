@@ -646,14 +646,18 @@ a:hover, a:active {
 .post-navigation a:focus,
 .paging-navigation a:hover,
 .paging-navigation a:focus {
-	color: white;
-	border-color: #b51c35;
-	background: #b51c35;
+	border-color: #fff9c0;
+	background: #fff9c0;
 }
 
 .nav-links {
 	margin: 0 auto;
 	padding: 0 .4em;
+}
+
+.nav-links i.fa {
+	font-size: 50px;
+	color: #b51c35;
 }
 
 .nav-previous {

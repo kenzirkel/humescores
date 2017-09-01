@@ -17,9 +17,8 @@
 		
 		&:hover,
 		&:focus {
-			color: white;
-			border-color: $color__interactive;
-			background: $color__interactive;
+			border-color: $color__background-ins;
+			background: $color__background-ins;
 		}
 	}
 	
@@ -29,6 +28,11 @@
 .nav-links {
 	margin: 0 auto;
 	padding: 0 .4em;
+}
+
+.nav-links i.fa {
+    font-size:50px;
+    color: $color__interactive;
 }
 
 .nav-previous {
