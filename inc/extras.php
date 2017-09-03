@@ -23,8 +23,15 @@ function humescores_body_classes( $classes ) {
 	if ( ! is_singular() ) {
 		$classes[] = 'hfeed';
 	}
-
-	return $classes;
+    
+    // add a class telling us if the sidebar is in use
+    if( is_active_sidebar('sidebar-1') ) {
+        $classes[] = 'has-sidebar';
+    } else {
+        $classes[] = 'no-sidebar';
+    }
+    
+    return $classes;
 }
 add_filter( 'body_class', 'humescores_body_classes' );
 
