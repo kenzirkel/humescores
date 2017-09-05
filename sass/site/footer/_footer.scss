@@ -1,6 +1,6 @@
 .site-footer {
 	position: relative;
-	padding: 1em;
+	padding: 0;
 	font-family: $font__sans;
 	color: #fff;
 	background-color: $color__skin;
@@ -9,7 +9,38 @@
 	@media screen and (min-width: $query__small) {
 		padding: 1em 2em;
 	}
+       
 }
+
+
+       .footer-widget-area {
+            background: grey;
+            padding: 80px;
+           color:white;
+            a,
+           cite, 
+           .rss-date {
+            color:white;
+        }    
+        
+       .widget {
+            max-width: 1200px;
+            margin: 0 auto;
+           
+       }
+        
+           h2.widget-title {
+               color:white;
+               border-bottom: 1px solid white;
+           }
+        ul {
+            column-count: 4;
+            column-gap: 40px;
+            align-self:auto;
+        }
+        
+    }
+
 
 .social-menu {
 	ul {
