@@ -35,21 +35,21 @@ function humescores_posted_on() {
 	);
 
 	echo '<span class="byline"> ' . $byline . '</span> <span class="posted-on">' . $posted_on . '</span>'; // WPCS: XSS OK.
-
+	
 	if ( ! post_password_required() && ( comments_open() || get_comments_number() ) ) {
-		echo ' <span class="comments-link">';
+		echo ' <span class="comments-link"><span class="extra">Discussion </span>';
 		/* translators: %s: post title */
 		comments_popup_link( sprintf( wp_kses( __( 'Leave a Comment<span class="screen-reader-text"> on %s</span>', 'humescores' ), array( 'span' => array( 'class' => array() ) ) ), get_the_title() ) );
 		echo '</span>';
 	}
-
+	
 	edit_post_link(
 		sprintf(
 			/* translators: %s: Name of current post */
 			esc_html__( 'Edit %s', 'humescores' ),
 			the_title( '<span class="screen-reader-text">"', '"</span>', false )
 		),
-		' <span class="edit-link">',
+		' <span class="edit-link"><span class="extra">Admin </span>',
 		'</span>'
 	);
 
@@ -135,11 +135,27 @@ add_action( 'save_post',     'humescores_category_transient_flusher' );
  */
 function humescores_post_navigation() {
 	the_post_navigation( array(
-		'next_text' => '<i class="fa fa-arrow-circle-right fa-lg" aria-hidden="true"></i><span class="meta-nav" aria-hidden="true">' . __( 'Next', 'humescores' ) . '</span> ' .
+		'next_text' => '<span class="meta-nav" aria-hidden="true">' . __( 'Next', 'humescores' ) . '</span> ' .
 			'<span class="screen-reader-text">' . __( 'Next post:', 'humescores' ) . '</span> ' .
 			'<span class="post-title">%title</span>',
-		'prev_text' => '<i class="fa fa-arrow-circle-left fa-4x" aria-hidden="true"></i><span class="meta-nav" aria-hidden="true">' . __( 'Previous', 'humescores' ) . '</span> ' .
+		'prev_text' => '<span class="meta-nav" aria-hidden="true">' . __( 'Previous', 'humescores' ) . '</span> ' .
 			'<span class="screen-reader-text">' . __( 'Previous post:', 'humescores' ) . '</span> ' .
 			'<span class="post-title">%title</span>',
 	) );
 }
+
+/**
+ * Customize ellipsis at end of excerpts.
+ */
+function humescores_excerpt_more( $more ) {
+	return "…";
+}
+add_filter( 'excerpt_more', 'humescores_excerpt_more' );
+
+/**
+ * Filter excerpt length to 100 words.
+ */
+function humescores_excerpt_length( $length ) {
+	return 100;
+}
+add_filter( 'excerpt_length', 'humescores_excerpt_length');

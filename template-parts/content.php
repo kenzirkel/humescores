@@ -10,6 +10,18 @@
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+
+    <?php 
+        if ( has_post_thumbnail() ) { ?>  
+        <figure class="featured-image index-image">
+            <a href="<?php echo esc_url( get_permalink() ) ?>" rel="bookmark">
+                <?php
+                the_post_thumbnail( 'humescores_index-img' ); 
+                ?>
+            </a>
+        </figure>
+        <?php }  ?>
+
 	<div class="post__content">
         <header class="entry-header">
             <?php humescores_the_category_list(); ?>
@@ -32,16 +44,12 @@
 
         <div class="entry-content">
             <?php
-                the_content( sprintf(
-                    /* translators: %s: Name of current post. */
-                    wp_kses( __( 'Continue reading %s <span class="meta-nav">&rarr;</span>', 'humescores' ), array( 'span' => array( 'class' => array() ) ) ),
-                    the_title( '<span class="screen-reader-text">"', '"</span>', false )
-                ) );
-
-                wp_link_pages( array(
-                    'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'humescores' ),
-                    'after'  => '</div>',
-                ) );
+            $length_setting = get_theme_mod('length_setting');
+            if ( 'excerpt' === $length_setting ) {
+                the_excerpt();
+            } else {
+                the_content();
+            }
             ?>
         </div><!-- .entry-content -->
 

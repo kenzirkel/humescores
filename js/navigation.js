@@ -6,7 +6,7 @@
  */
 
 (function( $ ) {
-	var masthead, menuToggle, siteNavContain, siteNavigation;
+	var masthead, menuToggle, siteNavigation;
 
 	function initMainNavigation( container ) {
 
@@ -17,13 +17,12 @@
 
 		container.find( '.menu-item-has-children > a, .page_item_has_children > a' ).after( dropdownToggle );
 
-
 		container.find( '.dropdown-toggle' ).click( function( e ) {
 			var _this = $( this ),
 				screenReaderSpan = _this.find( '.screen-reader-text' );
 				dropdownSymbol = _this.find( '.dropdown-symbol' );
-                dropdownSymbol.text ( dropdownSymbol.text() === '-' ? '+' : '-' );
- 
+				dropdownSymbol.text( dropdownSymbol.text() === '-' ? '+' : '-');
+
 			e.preventDefault();
 			_this.toggleClass( 'toggled-on' );
 			_this.next( '.children, .sub-menu' ).toggleClass( 'toggled-on' );
@@ -38,7 +37,6 @@
 
 	masthead       = $( '#masthead' );
 	menuToggle     = masthead.find( '.menu-toggle' );
-	siteNavContain = masthead.find( '.main-navigation' );
 	siteNavigation = masthead.find( '.main-navigation > div > ul' );
 
 	// Enable menuToggle.
@@ -49,13 +47,15 @@
 			return;
 		}
 
-		// Add an initial value for the attribute.
-		menuToggle.attr( 'aria-expanded', 'false' );
+		// Add an initial values for the attribute.
+		menuToggle.add( siteNavigation ).attr( 'aria-expanded', 'false' );
 
 		menuToggle.on( 'click.humescores', function() {
-			siteNavContain.toggleClass( 'toggled-on' );
+			$( siteNavigation.closest( '.main-navigation' ), this ).toggleClass( 'toggled-on' );
 
-			$( this ).attr( 'aria-expanded', siteNavContain.hasClass( 'toggled-on' ) );
+			$( this )
+				.add( siteNavigation )
+				.attr( 'aria-expanded', $( this ).add( siteNavigation ).attr( 'aria-expanded' ) === 'false' ? 'true' : 'false' );
 		});
 	})();
 
@@ -100,4 +100,32 @@
 			$( this ).parents( '.menu-item, .page_item' ).toggleClass( 'focus' );
 		});
 	})();
+
+	// Add the default ARIA attributes for the menu toggle and the navigations.
+	function onResizeARIA() {
+		if ( 'block' === $( '.menu-toggle' ).css( 'display' ) ) {
+
+			if ( menuToggle.hasClass( 'toggled-on' ) ) {
+				menuToggle.attr( 'aria-expanded', 'true' );
+			} else {
+				menuToggle.attr( 'aria-expanded', 'false' );
+			}
+
+			if ( siteNavigation.closest( '.main-navigation' ).hasClass( 'toggled-on' ) ) {
+				siteNavigation.attr( 'aria-expanded', 'true' );
+			} else {
+				siteNavigation.attr( 'aria-expanded', 'false' );
+			}
+		} else {
+			menuToggle.removeAttr( 'aria-expanded' );
+			siteNavigation.removeAttr( 'aria-expanded' );
+			menuToggle.removeAttr( 'aria-controls' );
+		}
+	}
+
+	$( document ).ready( function() {
+		$( window ).on( 'load.humescores', onResizeARIA );
+		$( window ).on( 'resize.humescores', onResizeARIA );
+	});
+
 })( jQuery );
